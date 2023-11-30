@@ -114,4 +114,21 @@ public class ProjectDaoImpl implements ProjectDao {
 		return m;
 	}
 
+	@Override
+	public void insert(ClassVO vo) {
+		try {
+				Connection conn = DBConnection.getConnection();
+				String SQL = "INSERT INTO TBL_CLASS_202201(REGIST_MONTH, C_NO,CLASS_AREA,TUITION,TEACHER_CODE) "
+						   + "VALUES(?, ?, ?, ?, ?);";
+				pstmt = conn.prepareStatement(SQL);
+				pstmt.setString(1, vo.REGIST_MONTH);
+				pstmt.setString(2, vo.C_NO);
+				pstmt.setString(3, vo.CLASS_AREA);
+				pstmt.setString(4, vo.TUITION);
+				pstmt.setString(5, vo.TEACHER_CODE);
+				pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
 }

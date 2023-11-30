@@ -68,7 +68,21 @@ public class ProjectController extends HttpServlet {
 			
 			response.sendRedirect(path+"index.jsp");			
 		} else if (sw.equals("INSERT")) {
+			String REGIST_MONTH = request.getParameter("REGIST_MONTH");
+			String C_NO = request.getParameter("C_NO");
+			String CLASS_AREA = request.getParameter("CLASS_NAME");
+			String ADDRESS = request.getParameter("ADDRESS");
+			String TUITION = request.getParameter("TUITION");
+
+			ClassVO vo = new ClassVO();
+		    vo.setREGIST_MONTH(REGIST_MONTH);
+			vo.setC_NO(C_NO);
+		    vo.setCLASS_AREA(ADDRESS);
+		    vo.setTUITION(TUITION);
+		    vo.setTEACHER_CODE(CLASS_AREA);
 			
+			service.insert(vo);
+			response.sendRedirect(path+"/index.jsp");
 		}
 	}
 

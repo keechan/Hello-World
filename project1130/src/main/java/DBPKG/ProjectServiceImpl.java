@@ -24,4 +24,9 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<MoneyVO> moneySelect() {
 		return dao.moneySelect();
 	}
+
+	@Override
+	public void insert(ClassVO vo) {
+		dao.insert(vo);
+	}
 }
