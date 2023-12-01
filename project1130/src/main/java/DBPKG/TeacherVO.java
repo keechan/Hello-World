@@ -1,11 +1,11 @@
 package DBPKG;
 
 public class TeacherVO {
-	int TEACHER_CODE;
+  	int TEACHER_CODE ;
 	String TEACHER_NAME;
 	String CLASS_NAME;
 	int CLASS_PRICE;
-	int TEACHER_REGIST_DATE;
+	int  TEACHER_REGIST_DATE;
 	
 	public int getTEACHER_CODE() {
 		return TEACHER_CODE;
@@ -34,8 +34,13 @@ public class TeacherVO {
 	public int getTEACHER_REGIST_DATE() {
 		return TEACHER_REGIST_DATE;
 	}
-	public void setTEACHER_REGIST_DATE(int tEACHER_REGIST_DATE) {
-		TEACHER_REGIST_DATE = tEACHER_REGIST_DATE;
+	public void setTEACHER_REGIST_DATE(int tEACHAR_REGIST_DATE) {
+		TEACHER_REGIST_DATE = tEACHAR_REGIST_DATE;
+	}
+	@Override
+	public String toString() {
+		return "TeacherVO [TEACHER_CODE=" + TEACHER_CODE + ", TEACHER_NAME=" + TEACHER_NAME + ", CLASS_NAME="
+				+ CLASS_NAME + ", CLASS_PRICE=" + CLASS_PRICE + ", TEACHER_REGIST_DATE=" + TEACHER_REGIST_DATE + "]";
 	}
 	
 	

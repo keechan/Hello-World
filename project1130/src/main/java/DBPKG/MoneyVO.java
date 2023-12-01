@@ -1,33 +1,35 @@
 package DBPKG;
 
 public class MoneyVO {
-	int TEACHER_CODE;
-	String CLASS_NAME;
-	String TEACHER_NAME;
-	int TUITION;
-
-	public int getTEACHER_CODE() {
-		return TEACHER_CODE;
-	}
-	public void setTEACHER_CODE(int tEACHER_CODE) {
-		TEACHER_CODE = tEACHER_CODE;
-	}
-	public String getCLASS_NAME() {
-		return CLASS_NAME;
-	}
-	public void setCLASS_NAME(String cLASS_NAME) {
-		CLASS_NAME = cLASS_NAME;
-	}
-	public String getTEACHER_NAME() {
-		return TEACHER_NAME;
-	}
-	public void setTEACHER_NAME(String tEACHER_NAME) {
-		TEACHER_NAME = tEACHER_NAME;
-	}
-	public int getTUITION() {
-		return TUITION;
-	}
-	public void setTUITION(int tUITION) {
-		TUITION = tUITION;
-	}
+  String T1;
+  String T2;
+  String T3;
+  int T4;
+  
+public String getT1() {
+	return T1;
+}
+public void setT1(String t1) {
+	T1 = t1;
+}
+public String getT2() {
+	return T2;
+}
+public void setT2(String t2) {
+	T2 = t2;
+}
+public String getT3() {
+	return T3;
+}
+public void setT3(String t3) {
+	T3 = t3;
+}
+public int getT4() {
+	return T4;
+}
+public void setT4(int t4) {
+	T4 = t4;
+}
+  
+  
 }

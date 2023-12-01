@@ -2,21 +2,23 @@ package DBPKG;
 
 import java.util.List;
 
-public class ProjectServiceImpl implements ProjectService {
+public class ProjectServiceImpl implements  ProjectService{
+	
 	ProjectDao dao = null;
 	
-	ProjectServiceImpl() {
-		dao = new ProjectDaoImpl();	
+	public  ProjectServiceImpl(){
+		dao = new  ProjectDaoImpl();
 	}
 	
 	@Override
 	public List<TeacherVO> teacherSelect() {
+		System.out.println("ServiceImpl--------->");
 		return dao.teacherSelect();
 	}
 
 	@Override
 	public List<MemberVO> memberSelect() {
-		System.out.println("ServiceImpl memberSelect ===========>");
+		// TODO Auto-generated method stub
 		return dao.memberSelect();
 	}
 
@@ -28,5 +30,32 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public void insert(ClassVO vo) {
 		dao.insert(vo);
+		
+	}
+
+	@Override
+	public List<ClassVO> classList() {
+		return dao.classList();
+	}
+
+	@Override
+	public MemberVO memberEdit(String cno) {
+		return dao.memberEdit(cno);
+	}
+
+	@Override
+	public List<MemoVO> memoList(String cno) {
+		System.out.println("ServiceImpl....(Memo) ------> " + cno);
+		return dao.memoList(cno);
+	}
+
+	@Override
+	public void memoInsert(MemoVO vo) {
+		dao.memoInsert(vo);
+	}
+
+	@Override
+	public void memoDelete(int idx) {
+		dao.memoDelete(idx);
 	}
 }
