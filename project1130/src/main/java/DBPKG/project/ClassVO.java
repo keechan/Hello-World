@@ -1,4 +1,4 @@
-package DBPKG;
+package DBPKG.project;
 
 public class ClassVO {
   String	REGIST_MONTH;

@@ -1,4 +1,4 @@
-package DBPKG;
+package DBPKG.project;
 
 import java.io.IOException;
 import java.util.List;

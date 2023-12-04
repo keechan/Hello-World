@@ -1,4 +1,4 @@
-package DBPKG;
+package DBPKG.project;
 
 public class TeacherVO {
   	int TEACHER_CODE ;

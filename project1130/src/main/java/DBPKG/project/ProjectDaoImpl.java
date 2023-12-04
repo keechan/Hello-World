@@ -1,4 +1,4 @@
-package DBPKG;
+package DBPKG.project;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,12 +1,12 @@
-package DBPKG;
+package DBPKG.project;
 
 import java.util.List;
 
-public interface ProjectService {
+public interface ProjectDao {
    List<TeacherVO> teacherSelect();
    List<MemberVO>  memberSelect();
-   List<MoneyVO> moneySelect();   
-   void  insert(ClassVO vo);
+   List<MoneyVO> moneySelect();
+   void insert(ClassVO vo);
    List<ClassVO> classList();
    
    MemberVO memberEdit(String cno);
