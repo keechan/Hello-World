@@ -32,7 +32,7 @@ table {
 				<td>등급</td><td><%=m.getGRADE()%></td></tr>
 		</table>
 
-		<form action="<%=path %>/ProjectController">
+		<form action="${path}/ProjectController">
 		<input type=hidden name="sw" value="MI">
 		<input type=hidden name="cno" value=<%=m.getC_NO()%>>
 		<table border=1>
@@ -47,7 +47,7 @@ table {
 		<table border=1>
 			<tr align=center><td>번호</td><td>메모</td><td>작성자</td></tr>
 			<% for(MemoVO vo : li )  {%>
-				<tr><td><a href="<%=path %>/ProjectController?sw=MD&cno=<%=m.getC_NO()%>&idx=<%=vo.getIdx() %>" >
+				<tr><td><a href="${path}/ProjectController?sw=MD&cno=<%=m.getC_NO()%>&idx=<%=vo.getIdx() %>" >
 							<%=vo.getIdx() %>
 						</a>
 					</td>

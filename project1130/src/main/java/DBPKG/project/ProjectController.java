@@ -44,7 +44,11 @@ public class ProjectController extends HttpServlet {
 		    System.out.println("Controller(S1)------------->");
 			RequestDispatcher	dispatcher
 			   =request.getRequestDispatcher("S1.jsp");
-			dispatcher.forward(request, response);			
+			dispatcher.forward(request, response);
+		}else if (sw.equals("jstl")) {
+			String code = request.getParameter("code");
+			String name = request.getParameter("name");
+			System.out.println("----------->" + code + ":" + name);
 		}else if (sw.equals("S2")) {
 			
 			RequestDispatcher dispatcher
@@ -64,14 +68,22 @@ public class ProjectController extends HttpServlet {
 			RequestDispatcher dispatcher
 			   =request.getRequestDispatcher("S4.jsp");
 			dispatcher.forward(request, response);
-		}else if (sw.equals("S5")) {			
+		}else if (sw.equals("S5")) {
 			List<ClassVO> li = service.classList();
+			String[] arr = {"#ff00ff", "#223322", "#00ffBB", "#CECCff",
+				            "#ff11ff", "#224422", "#01ffBB", "#CFCCff",
+				            "#ff22ff", "#224422", "#02ffBB", "#CGCCff", "#443333"};
 			request.setAttribute("li", li);
+			request.setAttribute("arr", arr);
+			for(ClassVO m : li) {
+				System.out.println(m.C_NO);
+				System.out.println(m.CLASS_AREA);
+			}
 			RequestDispatcher dispatcher
 			   =request.getRequestDispatcher("S5.jsp");
 			dispatcher.forward(request, response);
 		}else if (sw.equals("INDEX")) {
-			
+			//request.setAttribute(value, "철수");
 			response.sendRedirect(path+"/index.jsp");
 			
 		}else if (sw.equals("INSERT")) {
