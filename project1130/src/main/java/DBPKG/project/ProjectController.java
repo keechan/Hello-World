@@ -69,6 +69,7 @@ public class ProjectController extends HttpServlet {
 			   =request.getRequestDispatcher("S4.jsp");
 			dispatcher.forward(request, response);
 		}else if (sw.equals("S5")) {
+			System.out.println("Controller S5 -------> ");
 			List<ClassVO> li = service.classList();
 			String[] arr = {"#ff00ff", "#223322", "#00ffBB", "#CECCff",
 				            "#ff11ff", "#224422", "#01ffBB", "#CFCCff",

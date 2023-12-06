@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:import url="/include/top.jsp"/>
-<c:set var="path" value="${pageContext.request.ContextPath}" scope="session" />
+
 
 	<style>
 		table {
