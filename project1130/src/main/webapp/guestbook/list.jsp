@@ -1,97 +1,102 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/include/top.jsp" %>
-<%@ page import="DBPKG.guestbook.*"%>
-<%@ page import="java.net.URLEncoder" %>
 
-<%
-	
-	String rowcnt = (String) request.getAttribute("rowcnt");
-    int tc = Integer.parseInt(rowcnt);
-    List<GuestBookVO> li = (List<GuestBookVO>) request.getAttribute("li");
-    
-    String ch1 = (String) request.getAttribute("ch1");
-    String ch2 = "";
-	ch2 = (String) request.getAttribute("ch2");
-	//한글처리...
-    if(ch2 == null) {
-    	ch2 = (String) request.getAttribute("ch2");
-    } else {
-    	ch2 = URLEncoder.encode(ch2, "UTF-8");
-    }
-	
-	int start = (int) request.getAttribute("start");
-	int pageSize = (int) request.getAttribute("pageSize");
-	//int tp = (int) request.getAttribute("tp");
-	int totalPage = (int) Math.ceil((double) tc / pageSize); 
-	int nowPage = start / pageSize + 1;
-	int lastPage = (totalPage - 1) * pageSize + 1;
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<c:import url="/include/top.jsp" /> 
 
 <style>
-table {
-	width: 500px;
-}
+ table{
+   width:550px;
+ } 
+ 
 </style>
 <script>
-function delK(idx, ch1, ch2) {
-	location.href="<%=path%>/GuestBookController?sw=del&idx=" + idx + "&ch1=" + ch1 + "&ch2=" + ch2;
+function delK(k, ch1, ch2){
+	alert(k + ":" + ch1 + ":" + ch2) 
+	location.href="${path}/GuestBookController?sw=del&idx="+k +"&ch1="+ch1+"&ch2="+ch2
 }
-</script>
-<section>
-	<br>
-	<div align="center">
-		<h2>방명록 목록(<%=rowcnt %>)</h2>
-		<br>
-		<form action="<%=path %>/GuestBookController">
-		<input type=hidden name=sw value=list>
-			<select name=ch1>
-			    <option value="name" selected>이름</option>
-			    <option value="title">제목</option>
-			</select>
-			<input type=text name=ch2>
-			<input type=submit value="검색">			
-		</form>
-		<table border=1>
-			<tr align="center">
-				<th>순번</th>
-				<th>작성자</th>
-				<th>제목</th>
-				<th>content</th>
-				<th>삭제</th>
-			</tr>
-			<%
-			for (GuestBookVO m : li) {
-			%>
-			<tr align="center">
-				<td><%=m.getIdx()%></td>
-				<td><%=m.getName()%>
-				</td>
-				<td><%=m.getTitle()%></td>
-				<td><%=m.getContent()%></td>
-				<td><input type=button value="삭제" onClick="delK('<%=m.getIdx() %>', '<%=ch1%>', '<%=ch2%>')"></td>
-			</tr>
-			<%
-			}
-			%>
-		</table>
-		
-		
-		<% if (start!=1) { %>
-		<a href=GuestBookController?sw=list&start=1>처음페이지</a> &emsp;
-		<a href=GuestBookController?sw=list&start=<%=start - pageSize%>>이전</a> &emsp;
-		<%} else { %>
-		처음페이지 &emsp; 
-		이전&emsp;
-		<%} %>
-		<% if(nowPage != totalPage) { %>
-		<a href=GuestBookController?sw=list&start=<%=start + pageSize%>>다음&emsp;</a>
-		<%} else { %>
-		다음&emsp;
-		<% } %>
-		<a href=GuestBookController?sw=list&start=<%=lastPage%>>마지막페이지</a>
-	</div>
-	<br>
-</section>
 
-<%@ include file="/include/bottom.jsp"%>
+</script>
+
+<section>
+		<br>
+		<div align="center">
+		1.페이지 사이즈 : ${pageSize} &emsp;&emsp;
+		2.페이지 List사이즈(아래숫자갯수) : ${pageListSize}&emsp;&emsp;
+		3.전체레코두 수 : ${totalCount}&emsp;&emsp;
+		4.총페이지수 : ${totalPage}  <br>
+		5.현재레코드 : ${start}&emsp;&emsp;
+		6.현재페이지 : ${nowPage}&emsp;&emsp;
+		7.가로하단 시작 :${listStartPage}&emsp;&emsp;
+		8.가로 하단 마지막 : ${listEndPage}
+		
+		<h2>방명록 목록보기 </h2>
+		
+		<form action="${path}/GuestBookController">
+		<input type=hidden name=sw  value=list>
+		<select name=ch1>
+		  <option value=name> 이 름  </option>
+		  <option value=title> 제 목  </option>
+		</select>
+		<input  type=text  name=ch2 >
+		<input  type=submit value="검색하기">
+		
+		</form>
+		<br>
+		
+		<table border=1  >
+		<tr align="center">
+		 <th>순번</th><th>제목</th><th>작성자</th><th>삭제</th>
+		 </tr>
+		<c:forEach var="m"  items="${li}">
+		<tr align="center">
+		
+		   <td> ${m.getIdx()}</td> 
+		   <td align=left>&emsp; ${m.getTitle()}</td> 
+		   <td> ${m.getName()}</td> 
+		   <td> <input  type=button  value="삭제" onClick="delK('${m.getIdx()}','${ch1}','${ch2}')" >  </td>
+		
+		</tr>
+		</c:forEach>
+		
+		</table>
+
+		<c:if test="${start == 1}">
+			처음페이지 &emsp;
+			이전 &emsp;
+		</c:if>		
+		<c:if test="${start != 1}">
+			<a href=GuestBookController?sw=list&start=1&ch1=${ch1}&ch2=${ch2}>처음페이지</a> &emsp;
+		</c:if>
+		<c:if test="${listStartPage > pageListSize}">
+		   <c:set var="start"  value="${(listStartPage - pageListSize - 1) * pageSize  + 1}" />
+		   <a href=GuestBookController?sw=list&start=${start-pageSize}&ch1=${ch1}&ch2=${ch2}>
+		   	이전
+		   </a> &emsp;
+		</c:if>
+		
+		<c:forEach var="i" begin="${listStartPage}" end="${listEndPage}" >
+		  <c:set var="start"  value="${(i-1) * pageSize + 1}" />
+		  <c:if test="${i <= totalPage}">
+		    <a href=GuestBookController?sw=list&start=${start}&ch1=${ch1}&ch2=${ch2}>[${i}]</a>&nbsp;
+		  </c:if>
+		</c:forEach>
+		
+		<c:if test="${listEndPage < totalPage}">
+		<c:set  var="start" value="${listEndPage * pageSize + 1}" />
+		   <a href=GuestBookController?sw=list&start=${start+pageSize}&ch1=${ch1}&ch2=${ch2}>다음</a>&emsp;
+		</c:if>
+		<c:if test="${listEndPage >= totalPage}">
+		   다음&emsp;
+		</c:if>
+		
+		<c:set var="endPage"  value="${( totalPage - 1) * pageSize + 1}" />
+		<a href=GuestBookController?sw=list&start=${endPage}&ch1=${ch1}&ch2=${ch2}>마지막페이지</a>
+		</div>
+		<br>
+	</section>
+
+<%@ include  file="/include/bottom.jsp" %>

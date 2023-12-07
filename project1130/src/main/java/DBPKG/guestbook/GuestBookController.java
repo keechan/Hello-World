@@ -39,15 +39,14 @@ public class GuestBookController extends HttpServlet {
 		
 		if (sw.equals("list")) {
 			System.out.println("GuestBookController --------> list");
-			GuestBookVO vo = new GuestBookVO();
-			String ch1 = "";
-			String ch2 = "";
-			ch1 = request.getParameter("ch1");
-			ch2 = request.getParameter("ch2");
+			String ch1 = request.getParameter("ch1");
+			String ch2 = request.getParameter("ch2");
 			String start = request.getParameter("start");
+			
 			//페이징
 			int startInt = 0;
 			int pageSize = 10;
+			int pageListSize = 15;
 			if (start == null) {
 				startInt = 1;
 			} else {
@@ -60,25 +59,43 @@ public class GuestBookController extends HttpServlet {
 			if(ch2 == null) {
 				ch2 = "A";
 			}
+
 			//System.out.println(ch1 + ch2);
 			//ch1 = request.getParameter("ch1");
 			//ch2 = request.getParameter("ch2");
+			GuestBookVO vo = new GuestBookVO();
 			vo.setCh1(ch1);
 			vo.setCh2(ch2);
 			//페이징...
 			vo.setStart(startInt);
 			vo.setPageSize(pageSize);
 
-			String rowcnt = String.valueOf(service.rowCount(vo));
-			String tp = String.valueOf(service.totalPage());
+			//String tp = String.valueOf(service.totalPage());
+
 		    List<GuestBookVO> li = service.list(vo);
-		    request.setAttribute("rowcnt", rowcnt);
+			int totalCount = service.rowCount(vo);
+			int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+			int nowPage = startInt / pageSize + 1;
+			int lastPage = (totalPage - 1) * pageSize + 1;
+			int listStartPage = (nowPage - 1) / pageListSize * pageListSize + 1;
+			int listEndPage = listStartPage + pageListSize - 1 ;
+
 			request.setAttribute("li", li);
+			request.setAttribute("totalCount", totalCount);
+
 			request.setAttribute("ch1", ch1);
+			if(ch2 != null) {
+				ch2 = URLEncoder.encode(ch2, "UTF-8");
+			}
 			request.setAttribute("ch2", ch2);
+			
 			request.setAttribute("start", startInt);
 			request.setAttribute("pageSize", pageSize);
-			request.setAttribute("tp", tp);
+			request.setAttribute("totalPage", totalPage);
+			request.setAttribute("nowPage", nowPage);
+			request.setAttribute("lastPage", lastPage);
+			request.setAttribute("listStartPage", listStartPage);
+			request.setAttribute("listEndPage", listEndPage);
 			RequestDispatcher dispatcher
 			   = request.getRequestDispatcher("/guestbook/list.jsp");
 			dispatcher.forward(request, response);
